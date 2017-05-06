@@ -1,0 +1,29 @@
+{
+    "author": "remonasebi@gmail.com",
+    "dependencies": {},
+    "keywords": [],
+    "name": "youface",
+    "pebble": {
+        "displayName": "YouFace",
+        "enableMultiJS": true,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/youFaceTemp",
+                    "name": "IMAGE_YOU_BASE",
+                    "storageFormat": "png",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "uuid": "207e874b-5901-44ec-b47e-a49ed37bdb62",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}
