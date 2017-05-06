@@ -8,8 +8,10 @@ static GBitmap *s_background_bitmap;
 static void update_time() {
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
-  
+  static char dateText[] = "Wed Jan 01       ";
   static char s_buffer[8];
+  
+
   strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ? 
            "%H:%M" : "%I:%M", tick_time);
   text_layer_set_text(s_time_layer, s_buffer);
@@ -28,6 +30,14 @@ static void timeLayerHandler() {
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 }
 
+static void dateLayerHandler() {
+  text_layer_set_background_color(s_date_layer, GColorClear);
+  text_layer_set_text_color(s_date_layer, GColorBlueMoon);
+  text_layer_set_text(s_date_layer, "Wed Jan 01");
+  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
+  text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
+}
+
 static void main_window_load(Window *window) {
   // Window information  
   Layer *window_layer = window_get_root_layer(window);
@@ -38,6 +48,11 @@ static void main_window_load(Window *window) {
   s_background_layer = bitmap_layer_create(bounds);
   bitmap_layer_set_bitmap(s_background_layer, s_background_bitmap);
   layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
+  
+  // Creation of Date layer
+  s_date_layer = text_layer_create(GRect(-30, PBL_IF_ROUND_ELSE(48, 60), bounds.size.w, 50));
+  dateLayerHandler();
+  layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
   
   // Creation of time layer
   s_time_layer = text_layer_create(GRect(0, PBL_IF_ROUND_ELSE(48, 8), bounds.size.w, 50));
