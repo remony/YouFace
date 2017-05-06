@@ -8,10 +8,14 @@ static GBitmap *s_background_bitmap;
 static void update_time() {
   time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
-  static char dateText[] = "Wed Jan 01       ";
+  static char dateText[] = "Mon Jan 01";
   static char s_buffer[8];
   
+  // Set Date
+  strftime(dateText, sizeof(dateText), "%a %b %d", tick_time);
+  text_layer_set_text(s_date_layer, dateText);
 
+  // Set Time
   strftime(s_buffer, sizeof(s_buffer), clock_is_24h_style() ? 
            "%H:%M" : "%I:%M", tick_time);
   text_layer_set_text(s_time_layer, s_buffer);
@@ -33,7 +37,7 @@ static void timeLayerHandler() {
 static void dateLayerHandler() {
   text_layer_set_background_color(s_date_layer, GColorClear);
   text_layer_set_text_color(s_date_layer, GColorBlueMoon);
-  text_layer_set_text(s_date_layer, "Wed Jan 01");
+  text_layer_set_text(s_date_layer, "Mon Jan 01");
   text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
 }
